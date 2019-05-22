@@ -1,3 +1,4 @@
 = gatsby
     - gatsby new frontend
         create new gatsby project called 'frontend'
+    - gatsby develop
