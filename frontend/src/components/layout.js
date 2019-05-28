@@ -8,11 +8,24 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { StaticQuery, graphql } from "gatsby"
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from "styled-components";
 
-import theme from './theme';
+
+
+import theme from "./theme";
 import Header from "./header"
-import "./layout.css"
+import { CentralColumn } from "./styles";
+
+const Body = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 1fr 30px;
+  min-height: 100vh;
+`;
+
+const Footer = styled.footer`
+  font-size: 0.1em;
+`;
 
 const Layout = ({ children }) => (
   <StaticQuery
@@ -27,7 +40,7 @@ const Layout = ({ children }) => (
     `}
     render={data => (
       <ThemeProvider theme={theme}>
-        <>
+        <Body>
           <Header siteTitle={data.site.siteMetadata.title} />
           <div
             style={{
@@ -38,13 +51,15 @@ const Layout = ({ children }) => (
             }}
           >
             <main>{children}</main>
-            <footer>
-              © {new Date().getFullYear()}, Built with
-              {` `}
-              <a href="https://www.gatsbyjs.org">Gatsby</a>
-            </footer>
+            
+            <Footer>
+              <CentralColumn>
+            © {new Date().getFullYear()}, Built with love on the internet
+              </CentralColumn>
+              
+            </Footer>
           </div>
-        </>
+        </Body>
       </ThemeProvider>
     )}
   />
