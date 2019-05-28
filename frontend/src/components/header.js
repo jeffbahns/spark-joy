@@ -5,14 +5,14 @@ import styled from "styled-components";
 
 import { CentralColumn, Heading } from "./styles";
 
-const HeaderStyle = styled.div`
+const HeaderStyle = styled.header`
   background: rebeccapurple;
 `;
 
 const Header = ({ siteTitle }) => (
   <HeaderStyle>
-    <CentralColumn>
-      <Heading style={{lineHeight: '70px'}}>
+    <CentralColumn style={{ height: '100%' }}>
+      <Heading h1 style={{ lineHeight: '70px' }}>
         <Link
           to="/"
           style={{
@@ -24,8 +24,7 @@ const Header = ({ siteTitle }) => (
         </Link>
       </Heading>
     </CentralColumn>
-    
-  </HeaderStyle >
+  </HeaderStyle>
 )
 
 Header.propTypes = {

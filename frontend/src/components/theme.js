@@ -1,4 +1,3 @@
-
 export default {
     // add color palettes
     palette: {
