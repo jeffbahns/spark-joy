@@ -24,7 +24,7 @@ function headingSize({ h1, h2, h3, h4, h5 }) {
 export const Heading = styled.h1`
     font-size: ${props => palette("headings", headingSize(props))};
     line-height: ${palette("headings", 0)};
-    margin-bottom: 0
+    margin-bottom: 0;
 `;
 
 export const Flex = styled.div`
