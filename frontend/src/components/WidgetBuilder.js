@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { Heading, Flex } from "./styles";
 import { palette } from "styled-tools";
 
+import { Button } from "rebass";
+
 const Input = styled.input`
     border: 0;
     border-bottom: 1px solid black;
@@ -33,8 +35,9 @@ const RoundButton = styled.button`
 
 const Layout = styled.div`
     width: 450px;
+    height: 250px;
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.5fr 1fr 0.5fr;
 `;
 
 const Question = styled(Heading)`
@@ -56,6 +59,7 @@ const WidgetBuilder = () => {
                 <RoundButton>👎</RoundButton>
                 <RoundButton>👍</RoundButton>
             </Flex>
+            <Button bg="primary">Export</Button>
         </Layout>
     );
 }
