@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
+
 import styled from "styled-components";
 import { palette } from "styled-tools";
 import { Button } from "rebass";
+import ButterToast, { Cinnamon } from "butter-toast";
 
 import { Heading, Flex } from "./styles";
 import { copyToClipboard } from "../utils";
+
 
 const Input = styled.input`
     border: 0;
@@ -61,8 +64,7 @@ const Widget = ({ editable, value, update }) => (
                     value={value}
                     onChange={event => update(event.target.value)}
                 /> 
-            )
-            : (
+            ) : (
                 value
             )}{" "}
             spark joy?
@@ -81,6 +83,13 @@ const WidgetBuilder = () => {
         const el = document.createElement('div');
         ReactDOM.render(<Widget value={typeOfJoy} />, el);
         copyToClipboard(el.innerHTML);
+        
+        ButterToast.raise({
+          content: <Cinnamon.Crisp scheme={Cinnamon.Crisp.SCHEME_BLUE}
+              content={() => <div>Paste HTML into your favorite editor 👍</div>}
+              title="Copied to clipboard"/>
+        });
+
     }
 
     return (
