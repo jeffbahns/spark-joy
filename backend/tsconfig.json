@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "es2017",
+        "module": "commonjs",
+        "outDir": "./dist",
+        "strict": true,
+        "baseUrl": "./",
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "node" // todo: figure out issue here, can't find types/node without the package.json import
+        ],
+        "esModuleInterop": true,
+        "inlineSourceMap": true
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "spark-joy-backend",
+  "version": "0.1.0",
+  "description": "The backend for the Spark Joy app",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "deploy": "npm run build && sls deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffbahns/spark-joy.git"
+  },
+  "author": "Jeff Bahns <jeffbahns@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeffbahns/spark-joy/issues"
+  },
+  "homepage": "https://github.com/jeffbahns/spark-joy#readme",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.26",
+    "@types/node": "^12.0.4",
+    "@types/graphql": "^14.2.0",
+    "apollo-server-lambda": "^2.5.1",
+    "graphql": "^14.3.1"
+  }
+}

@@ -1,1 +1,8 @@
 instructions.txt
+./node_modules
+node_modules/
+
+
+dist/
+.serverless/
+*.log
