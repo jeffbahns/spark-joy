@@ -1,8 +1,20 @@
 import { APIGatewayEvent } from "aws-lambda";
+import { ApolloServer, gql } from "apollo-server-lambda";
 
-export const handler = async (event: APIGatewayEvent): Promise<any> => {
-    return { 
-        statusCode: 200,
-        body: 'hellow orld'
-    };
+const typeDefs = gql`
+    type Query {
+        hello: String
+    }
+`;
+
+const resolvers = {
+    Query: {
+        hello: () => "Hello World"
+    }
 }
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers
+});
+export const handler = server.createHandler();
