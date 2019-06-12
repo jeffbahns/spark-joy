@@ -1,10 +1,9 @@
 import { APIGatewayEvent } from "aws-lambda";
 import { ApolloServer, gql } from "apollo-server-lambda";
-
-import AWS from "aws-sdk";
 import uuidv4 from "uuid/v4";
+import { updateItem } from "./dynamodb";
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+
 
 const typeDefs = gql`
     type Query {
@@ -30,23 +29,14 @@ const resolvers = {
         saveWidget: async ( _: any, { name }: { name: string }) => {
             const widgetId = uuidv4();
 
-            const result = await new Promise((resolve, reject) => {
-                dynamoDB.update ({
+            const result = await updateItem({
                     TableName: process.env.DYNAMODB_TABLE!,
                     Key: { widgetId },
                     UpdateExpression: "SET widgetId = :widgetId, widgetName = :name",
                     ExpressionAttributeValues: {
                         ":widgetId": widgetId,
-                        ":widgetName": name
+                        ":name": name
                     }
-                }, (err, result) => {
-                    if (err) {
-                        console.error(err);
-                        reject(err)
-                    } else {
-                        resolve(result);
-                    }
-                });
             });
             console.log(result);
             return {
