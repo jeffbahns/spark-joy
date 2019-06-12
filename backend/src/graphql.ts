@@ -1,41 +1,65 @@
 import { APIGatewayEvent } from "aws-lambda";
 import { ApolloServer, gql } from "apollo-server-lambda";
 import uuidv4 from "uuid/v4";
-import { updateItem } from "./dynamodb";
+import { updateItem, getItem } from "./dynamodb";
 
 
 
 const typeDefs = gql`
-    type Query {
-        hello: String
-    }
     type Widget {
         widgetId: String!
         name: String!
         thumbsup: Int
         thumbsdown: Int
     }
+    
+    type Query {
+        hello: String
+        widget(widgetId: String!): Widget
+        allWidget: [Widget]
+    } 
 
     type Mutation {
-        saveWidget(name: String!): Widget
+        saveWidget(name: String!, widgetId: String): Widget
     }
 `;
 
 const resolvers = {
     Query: {
-        hello: () => "hello world"
+        hello: () => "hello world",
+
+        widget: async (_: any, { widgetId }: { widgetId: string }) => {
+            const result = await getItem({ Key: { widgetId } });
+            if (!result.Item) {
+                return {}; 
+            }
+            return {
+                ...result.Item,
+                name: result.Item.widgetName
+            };
+        },
+
+        allWidget: async () => {
+            const result;
+
+            return result;
+        }
+
     },
     Mutation: {
-        saveWidget: async ( _: any, { name }: { name: string }) => {
-            const widgetId = uuidv4();
+        saveWidget: async ( _: any, { name, widgetId }: { name: string, widgetId?: string } ) => {
+            if (!widgetId) {
+                widgetId = uuidv4();
+            }
 
             const result = await updateItem({
                     TableName: process.env.DYNAMODB_TABLE!,
                     Key: { widgetId },
-                    UpdateExpression: "SET widgetId = :widgetId, widgetName = :name",
+                    UpdateExpression: "SET widgetName = :name, thumbsup = :thumbsup, thumbsdown = :thumbsdown",
                     ExpressionAttributeValues: {
-                        ":widgetId": widgetId,
-                        ":name": name
+                        ":name": name,
+                        ":thumbsup": 0,
+                        ":thumbsdown": 0
                     }
             });
             console.log(result);
@@ -45,7 +69,8 @@ const resolvers = {
                 thumbsup: 0,
                 thumbsdown: 0
             };
-        }
+        },
+
     }
 }
 
