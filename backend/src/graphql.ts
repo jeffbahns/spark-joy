@@ -1,9 +1,7 @@
 import { APIGatewayEvent } from "aws-lambda";
 import { ApolloServer, gql } from "apollo-server-lambda";
 import uuidv4 from "uuid/v4";
-import { updateItem, getItem } from "./dynamodb";
-
-
+import { updateItem, getItem, scanItems } from "./dynamodb";
 
 const typeDefs = gql`
     type Widget {
@@ -12,12 +10,17 @@ const typeDefs = gql`
         thumbsup: Int
         thumbsdown: Int
     }
-    
     type Query {
         hello: String
+    }
+    
+    type Query {
         widget(widgetId: String!): Widget
+    }
+
+    type Query {
         allWidget: [Widget]
-    } 
+    }
 
     type Mutation {
         saveWidget(name: String!, widgetId: String): Widget
@@ -40,7 +43,7 @@ const resolvers = {
         },
 
         allWidget: async () => {
-            const result;
+            const result = await scanItems
 
             return result;
         }
