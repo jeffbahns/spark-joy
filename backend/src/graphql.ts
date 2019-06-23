@@ -12,13 +12,7 @@ const typeDefs = gql`
     }
     type Query {
         hello: String
-    }
-    
-    type Query {
         widget(widgetId: String!): Widget
-    }
-
-    type Query {
         allWidget: [Widget]
     }
 
@@ -43,9 +37,16 @@ const resolvers = {
         },
 
         allWidget: async () => {
-            const result = await scanItems
+            const result = await scanItems({});
 
-            return result;
+            console.log(result.Items);
+            if (!result.Items) {
+                return [];
+            }
+            return result.Items.map(widget => ({
+                ...widget, 
+                name: widget.widgetName 
+            }));
         }
 
     },
