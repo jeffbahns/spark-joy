@@ -8,7 +8,7 @@ import SEO from "../components/seo"
 import { CentralColumn } from "../components/styles";
 
 import WidgetBuilder from "../components/WidgetBuilder";
-
+import WidgetList from "../components/WidgetList";
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
@@ -16,6 +16,7 @@ const IndexPage = () => (
       <p>Did your thing spark joy? Ask the fans for feedback.</p>
       <p>Fill out the widget, export to HTML, insert anywhere</p>
       <WidgetBuilder />
+      <WidgetList widgets={{}} />
     </CentralColumn>
   </Layout>
 )
