@@ -8,7 +8,6 @@ export const CentralColumn = styled.div`
 `;
 
 function headingSize({ h1, h2, h3, h4, h5 }) {
-    console.log('h1', h1);
     if (h2) {
         return 1;
     } else if (h3) {

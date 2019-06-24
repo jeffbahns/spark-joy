@@ -26,7 +26,7 @@ exports.createPages = ({ graphql, actions }) => {
                     }
                 }
             }
-        `);
+        `); 
 
         // for each widget, create a thumbs up and thumbs down page
         result.data.widgetsapi.allWidget.forEach(({ widgetId }) => {
@@ -35,13 +35,23 @@ exports.createPages = ({ graphql, actions }) => {
                     path: `/${widgetId}/${voteType}`,
                     component: path.resolve("./src/pages/vote.js"),
                     context: {
-                        voteType: voteType
+                        widgetId,
+                        voteType
                     },
                 });
             });
+            createPage({
+                path: `/test`,
+                component: path.resolve("./src/pages/vote.js"),
+                context: {
+                    widgetId: '123456',
+                    voteType: 'thumbsup'
+                },
+            });
             
         });
-
         resolve();
     });
+
+    
 }
